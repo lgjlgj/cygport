@@ -745,10 +745,13 @@ cygconf() {
 #  Flags in CYGCONF_ARGS follow, and therefore override, flags passed by default
 #  and as arguments to cygconf.
 #****
-
-	verbose ${configure} \
-		--srcdir="${confdir}" ${confargs} "${@}" ${CYGCONF_ARGS} \
-		|| error "configure failed"
+	echo ${CYGCONF_ARGS}
+	MY_CMD="verbose ${configure} --srcdir=${confdir} ${confargs} ${@} ${CYGCONF_ARGS} || error \"configure failed\""
+	echo $MY_CMD
+	eval $MY_CMD
+#	verbose ${configure} \
+#		--srcdir="${confdir}" ${confargs} "${@}" ${CYGCONF_ARGS} \
+#		|| error "configure failed"
 }
 
 #****o* autotools.cygclass/src_compile (autotools)

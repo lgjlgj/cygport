@@ -79,7 +79,14 @@ git_fetch() {
 	# T likely doesn't exist at this point, so create it first
 	mkdir -p ${T}
 	cd ${T}
-	verbose git clone ${_depth} --no-checkout ${GIT_URI} ${GIT_MODULE} || error "git clone failed"
+	if [ -d ${T}/${GIT_MODULE} ]
+	then
+		echo 'Modified by JD. /usr/share/cygport/cygclass/git.cygclass'
+		cd ${T}/${GIT_MODULE}
+		verbose git fetch || error "git clone failed"
+	else
+		verbose git clone ${_depth} --no-checkout ${GIT_URI} ${GIT_MODULE} || error "git clone failed"
+	fi
 	cd ${T}/${GIT_MODULE}
 
 #****v* git.cygclass/GIT_BRANCH
